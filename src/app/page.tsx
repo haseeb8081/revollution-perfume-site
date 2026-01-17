@@ -1,0 +1,463 @@
+'use client';
+
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useCart } from "@/lib/cartContext";
+import { useSession, signOut } from "next-auth/react";
+import toast from "react-hot-toast";
+
+interface Review {
+  id: string;
+  name: string;
+  comment: string;
+  rating: number;
+  createdAt?: string;
+  stars?: string;
+}
+
+interface NewReview {
+  name: string;
+  comment: string;
+  rating: number;
+}
+
+export default function HomePage() {
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [displayedReviews, setDisplayedReviews] = useState<Review[]>([]);
+  const [showAllReviews, setShowAllReviews] = useState(false);
+  const [newReview, setNewReview] = useState<NewReview>({
+    name: "",
+    comment: "",
+    rating: 5
+  });
+  
+  useEffect(() => {
+    // Fetch reviews from the database
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch('/api/reviews');
+        if (response.ok) {
+          const data = await response.json();
+          const fetchedReviews = data.reviews || [];
+          setReviews(fetchedReviews);
+          // Show only first 4 reviews by default
+          setDisplayedReviews(fetchedReviews.slice(0, 4));
+        }
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+    
+    fetchReviews();
+  }, []);
+  
+  const handleShowMore = () => {
+    if (showAllReviews) {
+      // Show only first 4 reviews
+      setDisplayedReviews(reviews.slice(0, 4));
+      setShowAllReviews(false);
+    } else {
+      // Show all reviews
+      setDisplayedReviews(reviews);
+      setShowAllReviews(true);
+    }
+  };
+  const year = new Date().getFullYear();
+  const { getTotalItems } = useCart();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-visible');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all elements with animate-on-scroll class
+    const animatedElements = document.querySelectorAll('.animate-on-scroll');
+    animatedElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const sampleProducts = [
+    {
+      id: 1,
+      name: "Neon Mirage",
+      category: "Unisex",
+      price: 92,
+      image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop",
+      description: "Aquatic modern scent for everyone"
+    },
+    {
+      id: 2,
+      name: "Velvet Cascade",
+      category: "Women",
+      price: 98,
+      image: "https://images.unsplash.com/photo-1528662768781-e34ec5440e89?w=600&h=600&fit=crop",
+      description: "Elegant floral with velvety rose"
+    },
+    {
+      id: 3,
+      name: "Midnight Fern",
+      category: "Men",
+      price: 88,
+      image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&h=600&fit=crop",
+      description: "Bold aromatic fern and dark woods"
+    },
+  ];
+
+  return (
+    <div className="page">
+      {/* NAVBAR */}
+      <header className="navbar">
+        <div className="container">
+          <div className="navbar-inner">
+            <Link href="/" className="brand">
+              <div className="brand-mark">R</div>
+              <div>
+                <div className="brand-text-main">Revollution</div>
+                <div className="brand-text-sub">Signature Perfume House</div>
+              </div>
+            </Link>
+            <nav className="nav-links">
+              <Link href="/">Home</Link>
+              <Link href="/shop">Shop</Link>
+              <Link href="#collections">Collections</Link>
+              <Link href="#reviews">Reviews</Link>
+              <Link href="#contact">Contact</Link>
+            </nav>
+            <div className="nav-cta">
+              {status === 'authenticated' ? (
+                <div className="profile-dropdown">
+                  <div className="profile-trigger">
+                    <button className="btn btn-ghost" type="button">
+                      {session?.user?.image ? (
+                        <img 
+                          src={session.user.image} 
+                          alt={session.user.name || 'Profile'} 
+                          className="w-8 h-8 rounded-full mr-2"
+                        />
+                      ) : (
+                        <span className="mr-2">{session?.user?.name?.charAt(0) || 'U'}</span>
+                      )}
+                      {session?.user?.name || session?.user?.email}
+                    </button>
+                    <div className="dropdown-menu">
+                      <div className="dropdown-content">
+                        <Link href="/profile" className="dropdown-item">
+                          My Profile
+                        </Link>
+                        <Link href="/orders" className="dropdown-item">
+                          My Orders
+                        </Link>
+                        <button 
+                          onClick={async () => { await signOut({ redirect: false }); window.location.reload(); }}
+                          className="dropdown-item logout-btn"
+                          type="button"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link href="/login">
+                  <button className="btn btn-ghost" type="button">
+                    Log in
+                  </button>
+                </Link>
+              )}
+              <Link href="/cart">
+                <button className="btn btn-primary" type="button">
+                  Cart {getTotalItems() > 0 && `(${getTotalItems()})`}
+                </button>
+              </Link>
+            </div>
+            <button
+              className="mobile-menu-toggle"
+              aria-label="Toggle navigation"
+              type="button"
+              onClick={() => setMobileNavOpen((open) => !open)}
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* MAIN */}
+      <main>
+        {/* MODERN HERO SECTION */}
+        <section className="modern-hero" id="hero">
+          <div className="hero-gradient-bg" />
+          <div className="hero-particles" />
+          
+          <div className="container">
+            <div className="hero-content-centered">
+              <div className="hero-text-content">
+                <h1 className="hero-main-title animate-on-scroll">
+                  <span className="title-line">ELEVATE YOUR SIGNATURE <span className="highlight">WITH</span></span>
+                  <span className="title-line"><span className="brand-name">REVOLLUTION</span></span>
+                </h1>
+                <p className="hero-description animate-on-scroll">
+                  Exquisite fragrances crafted for the discerning individual seeking sophistication and distinction.
+                </p>
+                <div className="hero-cta-group centered animate-on-scroll">
+                  <Link href="/shop">
+                    <button className="btn btn-modern-primary">SHOP COLLECTION</button>
+                  </Link>
+                  <Link href="#collections">
+                    <button className="btn btn-modern-secondary">DISCOVER SCENTS</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* COLLECTIONS WITH PRODUCTS */}
+        <section id="collections" className="collections-new animate-on-scroll">
+          <div className="container">
+            <div className="section-header-centered animate-heading">
+              <h2 className="section-title-stylish">Our Signature Collections</h2>
+              <p className="section-subtitle-centered">
+                Discover perfumes crafted for every personality, mood, and moment
+              </p>
+            </div>
+            
+            <div className="products-grid">
+              {sampleProducts.map((product, index) => (
+                <Link key={product.id} href="/shop" className="product-card-link">
+                  <article className="product-card-new" style={{ animationDelay: `${index * 0.2}s` }}>
+                    <div className="product-image-wrapper">
+                      <img 
+                        src={product.image} 
+                        alt={product.name}
+                        className="product-image"
+                      />
+                      <div className="product-category-badge">{product.category}</div>
+                    </div>
+                    <div className="product-info">
+                      <h3 className="product-name">{product.name}</h3>
+                      <p className="product-description">{product.description}</p>
+                      <div className="product-footer">
+                        <span className="product-price">${product.price}</span>
+                        <button className="product-btn">View Details</button>
+                      </div>
+                    </div>
+                  </article>
+                </Link>
+              ))}
+            </div>
+            
+            <div className="collections-cta">
+              <Link href="/shop">
+                <button className="btn btn-view-all">View All Products</button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* REVIEWS */}
+        <section id="reviews" className="reviews-new animate-on-scroll">
+          <div className="container">
+            <div className="section-header-centered animate-heading">
+              <h2 className="section-title-stylish">What Our Customers Say</h2>
+              <p className="section-subtitle-centered">
+                Loved by those who wear it, noticed by those who don{`'`}t
+              </p>
+            </div>
+            <div className="reviews-strip">
+              
+              {/* ADD REVIEW FORM */}
+              <div className="add-review-form-container">
+                <div className="review-form-heading">
+                  <h3 className="form-title">Submit Your Review</h3>
+                </div>
+                
+                <div className="review-form-container">
+                  <form 
+                    className="review-form"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      
+                      try {
+                        const response = await fetch('/api/reviews', {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          body: JSON.stringify(newReview),
+                        });
+                        
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                          toast.success('Review submitted successfully!');
+                          // Add the new review to the list
+                          setReviews([{
+                            id: Date.now().toString(),
+                            name: newReview.name,
+                            comment: newReview.comment,
+                            rating: newReview.rating
+                          }, ...reviews]);
+                          
+                          // Reset form
+                          setNewReview({
+                            name: '',
+                            comment: '',
+                            rating: 5
+                          });
+                        } else {
+                          toast.error(result.message || 'Failed to submit review');
+                        }
+                      } catch (error) {
+                        toast.error('An error occurred while submitting your review');
+                      }
+                    }}
+                  >
+                    <div className="simple-review-form">
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="Your Name"
+                        value={newReview.name}
+                        onChange={(e) => setNewReview({...newReview, name: e.target.value})}
+                        required
+                      />
+                      <div className="rating-selector">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            type="button"
+                            className={`rating-star ${star <= newReview.rating ? 'filled' : ''}`}
+                            onClick={() => setNewReview({...newReview, rating: star})}
+                          >
+                            ★
+                          </button>
+                        ))}
+                      </div>
+                      <textarea
+                        className="form-input textarea"
+                        placeholder="Your Review"
+                        rows={2}
+                        value={newReview.comment}
+                        onChange={(e) => setNewReview({...newReview, comment: e.target.value})}
+                        required
+                      ></textarea>
+                      <button type="submit" className="btn btn-primary">
+                        Submit Review
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              
+              <div className="review-list">
+                {displayedReviews.map((review) => (
+                  <article key={review.id} className="review-card">
+                    <div className="review-head">
+                      <div className="review-name">{review.name}</div>
+                    </div>
+                    <div className="review-stars">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</div>
+                    <p>
+                      {review.comment}
+                    </p>
+                  </article>
+                ))}
+              </div>
+              
+              {reviews.length > 4 && (
+                <div className="view-more-container">
+                  <button className="btn btn-view-more" onClick={handleShowMore}>
+                    {showAllReviews ? 'Show Less' : 'View More'}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+
+        {/* CONTACT SECTION */}
+        <section id="contact" className="contact-section">
+          <div className="container">
+            <div className="contact-container">
+              <div className="contact-info">
+                <h2 className="contact-title">Get In Touch</h2>
+                <p className="contact-subtitle">Reach out to us for any inquiries or support</p>
+        
+                <div className="contact-details">
+                  <div className="contact-item">
+                    <div className="contact-icon">📞</div>
+                    <div className="contact-text">
+                      <div className="contact-label">Phone</div>
+                      <div className="contact-value">+1 (555) 123-4567</div>
+                    </div>
+                  </div>
+        
+                  <div className="contact-item">
+                    <div className="contact-icon">✉️</div>
+                    <div className="contact-text">
+                      <div className="contact-label">Email</div>
+                      <div className="contact-value">hello@revollution.com</div>
+                    </div>
+                  </div>
+                </div>
+        
+                <div className="social-links">
+                  <h3 className="social-title">Follow Us</h3>
+                  <div className="social-icons">
+                    <a href="#" className="social-icon">
+                      <span className="social-icon-text">📱</span>
+                      <span className="social-icon-label">Instagram</span>
+                    </a>
+                    <a href="#" className="social-icon">
+                      <span className="social-icon-text">📘</span>
+                      <span className="social-icon-label">Facebook</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+                      
+              <div className="contact-image">
+                <img 
+                  src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop" 
+                  alt="Neon Mirage Perfume - Our Signature Scent" 
+                  className="perfume-bottle-img" 
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-inner">
+            <p>&#169; {year} Revollution. All rights reserved.</p>
+            <div className="footer-links">
+              <Link href="/shop">Shop</Link>
+              <Link href="#contact">Contact</Link>
+              <Link href="/">Back to top</Link>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
