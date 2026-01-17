@@ -3643,11 +3643,27 @@ section {
 
 
 
-  .nav-links,
+  .nav-links {
+
+    display: none;
+
+  }
 
   .nav-cta {
 
-    display: none;
+    display: flex;
+
+    gap: 0.5rem;
+
+    align-items: center;
+
+  }
+
+  .nav-cta .btn {
+
+    padding: 0.5rem 0.75rem;
+
+    font-size: 0.8rem;
 
   }
 
