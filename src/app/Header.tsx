@@ -14,7 +14,8 @@ export default function Header({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { data: session, status } = useSession();
   
-  const toggleDropdown = () => {
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
   
@@ -26,11 +27,11 @@ export default function Header({
       }
     };
     
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('click', handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [isDropdownOpen]);
 
   return (
     <header className="navbar">
