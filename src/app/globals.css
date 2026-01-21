@@ -3638,56 +3638,46 @@ section {
   .navbar-inner {
 
     padding: 0.7rem 0;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 
+  
+  .brand {
+    order: 1;
+    margin-right: auto;
+  }
+  
+  .nav-links {
+    order: 3;
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    margin: 0.5rem auto 0;
+    justify-content: center;
+    width: 100%;
     flex-wrap: wrap;
   }
-
-
-
-  .nav-links {
-
-    display: flex;
-
-    flex-direction: row;
-
-    gap: 1rem;
-
-    margin-right: auto;
-
-  }
-
+  
   .nav-cta {
-
+    order: 2;
     display: flex;
-
     gap: 0.5rem;
-
     align-items: center;
-
+    margin-left: auto;
   }
-
+  
   .nav-cta .btn {
-
     padding: 0.5rem 0.75rem;
-
-    font-size: 0.8rem;
-
+    font-size: 0.75rem;
   }
-
-
-
+  
   .mobile-menu-toggle {
-
     display: none;
-
   }
-
-
-
+  
   .mobile-nav {
-
     display: none;
-
     padding-bottom: 0.9rem;
 
   }
@@ -5687,4 +5677,26 @@ PROFILE DROPDOWN STYLES
   height: 100% !important;
   background: linear-gradient(135deg, rgba(11, 31, 59, 0.7), rgba(5, 16, 36, 0.8)) !important;
   z-index: 2 !important;
+}
+
+
+@media (max-width: 480px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .nav-cta {
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .nav-cta .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.6rem;
+  }
 }
