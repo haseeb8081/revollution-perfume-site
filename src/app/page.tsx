@@ -24,6 +24,8 @@ interface NewReview {
 
 export default function HomePage() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [displayedReviews, setDisplayedReviews] = useState<Review[]>([]);
   const [showAllReviews, setShowAllReviews] = useState(false);
@@ -64,6 +66,25 @@ export default function HomePage() {
       setShowAllReviews(true);
     }
   };
+  
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+  
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
   const year = new Date().getFullYear();
   const { getTotalItems } = useCart();
   const { data: session, status } = useSession();
@@ -139,8 +160,14 @@ export default function HomePage() {
             <div className="nav-cta">
               {status === 'authenticated' ? (
                 <div className="profile-dropdown">
-                  <div className="profile-trigger">
-                    <button className="btn btn-ghost" type="button">
+                  <div className="profile-trigger" ref={dropdownRef}>
+                    <button 
+                      className="btn btn-ghost" 
+                      type="button"
+                      onClick={toggleDropdown}
+                      aria-haspopup="true"
+                      aria-expanded={isDropdownOpen ? 'true' : 'false'}
+                    >
                       {session?.user?.image ? (
                         <img 
                           src={session.user.image} 
@@ -152,23 +179,29 @@ export default function HomePage() {
                       )}
                       {session?.user?.name || session?.user?.email}
                     </button>
-                    <div className="dropdown-menu">
-                      <div className="dropdown-content">
-                        <Link href="/profile" className="dropdown-item">
-                          My Profile
-                        </Link>
-                        <Link href="/orders" className="dropdown-item">
-                          My Orders
-                        </Link>
-                        <button 
-                          onClick={async () => { await signOut({ redirect: false }); window.location.reload(); }}
-                          className="dropdown-item logout-btn"
-                          type="button"
-                        >
-                          Logout
-                        </button>
+                    {isDropdownOpen && (
+                      <div className="dropdown-menu">
+                        <div className="dropdown-content">
+                          <Link href="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                            My Profile
+                          </Link>
+                          <Link href="/orders" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                            My Orders
+                          </Link>
+                          <button 
+                            onClick={async () => { 
+                              await signOut({ redirect: false }); 
+                              window.location.reload(); 
+                              setIsDropdownOpen(false);
+                            }}
+                            className="dropdown-item logout-btn"
+                            type="button"
+                          >
+                            Logout
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               ) : (
