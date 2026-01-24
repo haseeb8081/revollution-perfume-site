@@ -3643,21 +3643,23 @@ section {
     align-items: center;
   }
   
-  .nav-links {
-    display: flex;
-    flex-direction: row;
+  .navbar-inner .nav-links {
+    display: flex !important;
+    flex-direction: row !important;
     gap: 1rem;
     align-items: center;
+    justify-content: flex-start;
   }
   
-  .nav-links a {
+  .navbar-inner .nav-links a {
     white-space: nowrap;
     font-size: 0.9rem;
     padding: 0.5rem;
+    flex: none;
   }
     
-  .nav-cta {
-    display: flex;
+  .navbar-inner .nav-cta {
+    display: flex !important;
     gap: 0.8rem;
     align-items: center;
   }
@@ -5707,20 +5709,20 @@ PROFILE DROPDOWN STYLES
 
 
 @media (max-width: 576px) {
-  .nav-links {
+  .navbar-inner .nav-links {
     gap: 0.6rem;
   }
   
-  .nav-links a {
+  .navbar-inner .nav-links a {
     font-size: 0.8rem;
     padding: 0.4rem;
   }
   
-  .nav-cta {
+  .navbar-inner .nav-cta {
     gap: 0.5rem;
   }
   
-  .nav-cta .btn {
+  .navbar-inner .nav-cta .btn {
     padding: 0.4rem 0.6rem;
     font-size: 0.75rem;
   }
