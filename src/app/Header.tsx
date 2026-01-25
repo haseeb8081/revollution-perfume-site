@@ -15,6 +15,7 @@ export default function Header({
   const { data: session, status } = useSession();
   
   const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
