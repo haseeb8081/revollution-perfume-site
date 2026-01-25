@@ -76,10 +76,10 @@ export default function Header({
                   {isDropdownOpen && (
                     <div className="dropdown-menu">
                       <div className="dropdown-content">
-                        <Link href="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                        <Link href="/profile" className="dropdown-item" onClick={(e) => { e.preventDefault(); setIsDropdownOpen(false); setTimeout(() => { window.location.href = '/profile'; }, 10); }}>
                           My Profile
                         </Link>
-                        <Link href="/orders" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                        <Link href="/orders" className="dropdown-item" onClick={(e) => { e.preventDefault(); setIsDropdownOpen(false); setTimeout(() => { window.location.href = '/orders'; }, 10); }}>
                           My Orders
                         </Link>
                         <button 
