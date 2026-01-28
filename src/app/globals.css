@@ -3668,12 +3668,12 @@ section {
   
   .nav-cta {
     display: flex !important;
+    flex-direction: row !important;
     gap: 0.8rem;
     align-items: center;
     width: 100%;
     justify-content: center;
     padding: 0.5rem 0;
-    flex-direction: row;
   }
   
   .nav-cta .btn {
@@ -5741,5 +5741,13 @@ PROFILE DROPDOWN STYLES
   .nav-cta .btn {
     padding: 0.4rem 0.6rem;
     font-size: 0.75rem;
+  }
+}
+
+
+@media (max-width: 720px) {
+  .nav-cta .btn {
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }

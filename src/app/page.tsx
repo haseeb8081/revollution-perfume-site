@@ -85,7 +85,7 @@ export default function HomePage() {
     return () => {
       document.removeEventListener('click', handleClickOutside);
     };
-  }, [isDropdownOpen]);
+  });
   const year = new Date().getFullYear();
   const { getTotalItems } = useCart();
   const { data: session, status } = useSession();
