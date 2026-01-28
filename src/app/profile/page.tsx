@@ -1,13 +1,35 @@
 'use client';
 
 import { useSession, signOut } from 'next-auth/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function ProfilePage() {
   const { data: session, status } = useSession();
   const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user) {
@@ -21,7 +43,7 @@ export default function ProfilePage() {
   }, [session, status]);
 
   if (status === 'loading' || loading) {
-    return (
+  return (
       <div className="page">
         <div className="container" style={{ padding: '3rem 0' }}>
           <p>Loading profile...</p>
@@ -66,11 +88,17 @@ export default function ProfilePage() {
             <div className="nav-cta">
               <div className="profile-dropdown">
                 <div className="profile-trigger">
-                  <button className="btn btn-ghost" type="button">
+                  <button 
+                    className="btn btn-ghost" 
+                    type="button"
+                    onClick={toggleDropdown}
+                    aria-haspopup="true"
+                    aria-expanded={isDropdownOpen ? 'true' : 'false'}
+                  >
                     {userData.image ? (
-                      <img 
-                        src={userData.image} 
-                        alt={userData.name || 'Profile'} 
+                      <img
+                        src={userData.image}
+                        alt={userData.name || 'Profile'}
                         className="w-8 h-8 rounded-full mr-2"
                       />
                     ) : (
@@ -78,26 +106,29 @@ export default function ProfilePage() {
                     )}
                     {userData.name || userData.email}
                   </button>
-                  <div className="dropdown-menu">
-                    <div className="dropdown-content">
-                      <Link href="/profile" className="dropdown-item">
-                        My Profile
-                      </Link>
-                      <Link href="/orders" className="dropdown-item">
-                        My Orders
-                      </Link>
-                      <button 
-                        onClick={async () => {
-                          await signOut({ redirect: false });
-                          window.location.reload();
-                        }}
-                        className="dropdown-item logout-btn"
-                        type="button"
-                      >
-                        Logout
-                      </button>
+                  {isDropdownOpen && (
+                    <div className="dropdown-menu">
+                      <div className="dropdown-content">
+                        <Link href="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                          My Profile
+                        </Link>
+                        <Link href="/orders" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                          My Orders
+                        </Link>
+                        <button 
+                          onClick={async () => {
+                            await signOut({ redirect: false });
+                            window.location.reload();
+                            setIsDropdownOpen(false);
+                          }}
+                          className="dropdown-item logout-btn"
+                          type="button"
+                        >
+                          Logout
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
               <Link href="/cart">

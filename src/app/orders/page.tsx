@@ -1,15 +1,17 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
-import { useState, useEffect } from 'react';
+import { useSession, signOut } from 'next-auth/react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useCart } from '@/lib/cartContext';
 
 export default function OrdersPage() {
   const { data: session, status } = useSession();
-  const { getUserOrders } = useCart();
+  const { getUserOrders } = useCart();      
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user) {
@@ -33,8 +35,164 @@ export default function OrdersPage() {
     }
   }, [session, status, getUserOrders]);
 
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+
   if (status === 'loading' || loading) {
-    return (
+  
+;
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+  
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+  
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+  
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+  
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+  
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+  
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+  return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+  return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+  return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+  return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+  return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+  return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+  return (
       <div className="page">
         <div className="container" style={{ padding: '3rem 0' }}>
           <p>Loading your orders...</p>
@@ -79,11 +237,17 @@ export default function OrdersPage() {
             <div className="nav-cta">
               <div className="profile-dropdown">
                 <div className="profile-trigger">
-                  <button className="btn btn-ghost" type="button">
+                  <button 
+                    className="btn btn-ghost" 
+                    type="button"
+                    onClick={toggleDropdown}
+                    aria-haspopup="true"
+                    aria-expanded={isDropdownOpen ? 'true' : 'false'}
+                  >
                     {session?.user?.image ? (
-                      <img 
-                        src={session.user.image} 
-                        alt={session.user.name || 'Profile'} 
+                      <img
+                        src={session.user.image}
+                        alt={session.user.name || 'Profile'}
                         className="w-8 h-8 rounded-full mr-2"
                       />
                     ) : (
@@ -91,26 +255,29 @@ export default function OrdersPage() {
                     )}
                     {session?.user?.name || session?.user?.email}
                   </button>
-                  <div className="dropdown-menu">
-                    <div className="dropdown-content">
-                      <Link href="/profile" className="dropdown-item">
-                        My Profile
-                      </Link>
-                      <Link href="/orders" className="dropdown-item">
-                        My Orders
-                      </Link>
-                      <button 
-                        onClick={() => {
-                          // Sign out would go here
-                          window.location.href = '/';
-                        }}
-                        className="dropdown-item logout-btn"
-                        type="button"
-                      >
-                        Logout
-                      </button>
+                  {isDropdownOpen && (
+                    <div className="dropdown-menu">
+                      <div className="dropdown-content">
+                        <Link href="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                          My Profile
+                        </Link>
+                        <Link href="/orders" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                          My Orders
+                        </Link>
+                        <button
+                          onClick={async () => { 
+                            await signOut({ redirect: false }); 
+                            window.location.reload(); 
+                            setIsDropdownOpen(false);
+                          }}
+                          className="dropdown-item logout-btn"
+                          type="button"       
+                        >
+                          Logout
+                        </button>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
               <Link href="/cart">
