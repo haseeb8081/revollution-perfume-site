@@ -68,6 +68,7 @@ export default function HomePage() {
   };
   
   const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
     e.stopPropagation();
     setIsDropdownOpen(!isDropdownOpen);
   };
