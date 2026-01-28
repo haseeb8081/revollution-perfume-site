@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useCart } from "@/lib/cartContext";
 import { useSession, signOut } from "next-auth/react";
@@ -21,6 +21,8 @@ export default function CartPage() {
   const [orderSubmitted, setOrderSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -132,6 +134,26 @@ export default function CartPage() {
     }
   };
 
+
+  const toggleDropdown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
   return (
     <div className="page">
       {/* NAVBAR */}
@@ -156,11 +178,17 @@ export default function CartPage() {
               {status === 'authenticated' ? (
                 <div className="profile-dropdown">
                   <div className="profile-trigger">
-                    <button className="btn btn-ghost" type="button">
+                    <button 
+                      className="btn btn-ghost" 
+                      type="button"
+                      onClick={toggleDropdown}
+                      aria-haspopup="true"
+                      aria-expanded={isDropdownOpen ? 'true' : 'false'}
+                    >
                       {session?.user?.image ? (
-                        <img 
-                          src={session.user.image} 
-                          alt={session.user.name || 'Profile'} 
+                        <img
+                          src={session.user.image}
+                          alt={session.user.name || 'Profile'}
                           className="w-8 h-8 rounded-full mr-2"
                         />
                       ) : (
@@ -168,23 +196,29 @@ export default function CartPage() {
                       )}
                       {session?.user?.name || session?.user?.email}
                     </button>
-                    <div className="dropdown-menu">
-                      <div className="dropdown-content">
-                        <Link href="/profile" className="dropdown-item">
-                          My Profile
-                        </Link>
-                        <Link href="/orders" className="dropdown-item">
-                          My Orders
-                        </Link>
-                        <button 
-                          onClick={async () => { await signOut({ redirect: false }); window.location.reload(); }}
-                          className="dropdown-item logout-btn"
-                          type="button"
-                        >
-                          Logout
-                        </button>
+                    {isDropdownOpen && (
+                      <div className="dropdown-menu">
+                        <div className="dropdown-content">
+                          <Link href="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                            My Profile
+                          </Link>
+                          <Link href="/orders" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                            My Orders
+                          </Link>
+                          <button
+                            onClick={async () => { 
+                              await signOut({ redirect: false }); 
+                              window.location.reload(); 
+                              setIsDropdownOpen(false);
+                            }}
+                            className="dropdown-item logout-btn"
+                            type="button"
+                          >
+                            Logout
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               ) : (

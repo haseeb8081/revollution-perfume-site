@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useCart } from "@/lib/cartContext";
 import { useSession, signOut } from "next-auth/react";
@@ -108,6 +108,8 @@ export default function ShopPage() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(dummyProducts);
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { addToCart, getTotalItems } = useCart();
   const { data: session, status } = useSession();
 
@@ -144,11 +146,17 @@ export default function ShopPage() {
               {status === 'authenticated' ? (
                 <div className="profile-dropdown">
                   <div className="profile-trigger">
-                    <button className="btn btn-ghost" type="button">
+                    <button 
+                      className="btn btn-ghost" 
+                      type="button"
+                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); setIsDropdownOpen(!isDropdownOpen); }}
+                      aria-haspopup="true"
+                      aria-expanded={isDropdownOpen ? 'true' : 'false'}
+                    >
                       {session?.user?.image ? (
-                        <img 
-                          src={session.user.image} 
-                          alt={session.user.name || 'Profile'} 
+                        <img
+                          src={session.user.image}
+                          alt={session.user.name || 'Profile'}
                           className="w-8 h-8 rounded-full mr-2"
                         />
                       ) : (
@@ -156,23 +164,29 @@ export default function ShopPage() {
                       )}
                       {session?.user?.name || session?.user?.email}
                     </button>
-                    <div className="dropdown-menu">
-                      <div className="dropdown-content">
-                        <Link href="/profile" className="dropdown-item">
-                          My Profile
-                        </Link>
-                        <Link href="/orders" className="dropdown-item">
-                          My Orders
-                        </Link>
-                        <button 
-                          onClick={async () => { await signOut({ redirect: false }); window.location.reload(); }}
-                          className="dropdown-item logout-btn"
-                          type="button"
-                        >
-                          Logout
-                        </button>
+                    {isDropdownOpen && (
+                      <div className="dropdown-menu">
+                        <div className="dropdown-content">
+                          <Link href="/profile" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                            My Profile
+                          </Link>
+                          <Link href="/orders" className="dropdown-item" onClick={() => setIsDropdownOpen(false)}>
+                            My Orders
+                          </Link>
+                          <button
+                            onClick={async () => { 
+                              await signOut({ redirect: false }); 
+                              window.location.reload(); 
+                              setIsDropdownOpen(false);
+                            }}
+                            className="dropdown-item logout-btn"
+                            type="button"
+                          >
+                            Logout
+                          </button>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </div>
               ) : (
