@@ -37,6 +37,8 @@ export default function HomePage() {
     rating: 5,
     product: ""
   });
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const [isScrollingUp, setIsScrollingUp] = useState(true);
   
   useEffect(() => {
     // Fetch reviews from the database
@@ -114,6 +116,37 @@ export default function HomePage() {
     return () => observer.disconnect();
   }, []);
 
+  // Handle navbar scroll behavior
+  useEffect(() => {
+    let ticking = false;
+    
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+          
+          // Only hide navbar when scrolling down and past a certain threshold
+          if (currentScrollY > 100) {
+            setIsScrollingUp(prevScrollY > currentScrollY);
+          } else {
+            setIsScrollingUp(true);
+          }
+          
+          setPrevScrollY(currentScrollY);
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [prevScrollY]);
+
   const sampleProducts = [
     {
       id: 1,
@@ -144,7 +177,7 @@ export default function HomePage() {
   return (
     <div className="page">
       {/* NAVBAR */}
-      <header className="navbar">
+      <header className={`navbar ${!isScrollingUp ? 'navbar-hidden' : ''}`}>
         <div className="container">
           <div className="navbar-inner">
             <Link href="/" className="brand">
