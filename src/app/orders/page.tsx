@@ -7,7 +7,7 @@ import { useCart } from '@/lib/cartContext';
 
 export default function OrdersPage() {
   const { data: session, status } = useSession();
-  const { getUserOrders } = useCart();      
+  const { getUserOrders } = useCart();
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -56,143 +56,7 @@ export default function OrdersPage() {
   });
 
   if (status === 'loading' || loading) {
-  
-;
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-  
-  const toggleDropdown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-  
-  const toggleDropdown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-  
-  const toggleDropdown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-  
-  const toggleDropdown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-  
-  const toggleDropdown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-  
-  const toggleDropdown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-    
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
-  return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
-  return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
-  return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
-  return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
-  return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
-  return () => {
-      document.removeEventListener('click', handleClickOutside);
-    };
-  });
-  return (
+    return (
       <div className="page">
         <div className="container" style={{ padding: '3rem 0' }}>
           <p>Loading your orders...</p>
@@ -245,9 +109,9 @@ export default function OrdersPage() {
                     aria-expanded={isDropdownOpen ? 'true' : 'false'}
                   >
                     {session?.user?.image ? (
-                      <img
-                        src={session.user.image}
-                        alt={session.user.name || 'Profile'}
+                      <img 
+                        src={session.user.image} 
+                        alt={session.user.name || 'Profile'} 
                         className="w-8 h-8 rounded-full mr-2"
                       />
                     ) : (
@@ -271,7 +135,7 @@ export default function OrdersPage() {
                             setIsDropdownOpen(false);
                           }}
                           className="dropdown-item logout-btn"
-                          type="button"       
+                          type="button"
                         >
                           Logout
                         </button>
