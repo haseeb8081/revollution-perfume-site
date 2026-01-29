@@ -6,7 +6,7 @@ export async function POST(request: NextRequest) {
   try {
     await dbConnect();
 
-    const { name, comment, rating = 5 } = await request.json();
+    const { name, comment, rating = 5, product } = await request.json();
 
     // Validate required fields
     if (!name || !comment) {
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
       name,
       comment,
       rating: normalizedRating,
+      product,
       verifiedPurchase: false, // Initially not verified
     });
 
@@ -35,6 +36,7 @@ export async function POST(request: NextRequest) {
         name: review.name,
         rating: review.rating,
         comment: review.comment,
+        product: review.product,
         createdAt: review.createdAt,
       },
     });

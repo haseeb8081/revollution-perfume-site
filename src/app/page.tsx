@@ -12,6 +12,7 @@ interface Review {
   name: string;
   comment: string;
   rating: number;
+  product?: string;
   createdAt?: string;
   stars?: string;
 }
@@ -20,6 +21,7 @@ interface NewReview {
   name: string;
   comment: string;
   rating: number;
+  product: string;
 }
 
 export default function HomePage() {
@@ -32,7 +34,8 @@ export default function HomePage() {
   const [newReview, setNewReview] = useState<NewReview>({
     name: "",
     comment: "",
-    rating: 5
+    rating: 5,
+    product: ""
   });
   
   useEffect(() => {
@@ -334,7 +337,12 @@ export default function HomePage() {
                           headers: {
                             'Content-Type': 'application/json',
                           },
-                          body: JSON.stringify(newReview),
+                          body: JSON.stringify({
+                            name: newReview.name,
+                            comment: newReview.comment,
+                            rating: newReview.rating,
+                            product: newReview.product
+                          }),
                         });
                         
                         const result = await response.json();
@@ -346,14 +354,16 @@ export default function HomePage() {
                             id: Date.now().toString(),
                             name: newReview.name,
                             comment: newReview.comment,
-                            rating: newReview.rating
+                            rating: newReview.rating,
+                            product: newReview.product
                           }, ...reviews]);
                           
                           // Reset form
                           setNewReview({
                             name: '',
                             comment: '',
-                            rating: 5
+                            rating: 5,
+                            product: ''
                           });
                         } else {
                           toast.error(result.message || 'Failed to submit review');
@@ -372,6 +382,23 @@ export default function HomePage() {
                         onChange={(e) => setNewReview({...newReview, name: e.target.value})}
                         required
                       />
+                      <select
+                        className="form-input"
+                        value={newReview.product}
+                        onChange={(e) => setNewReview({...newReview, product: e.target.value})}
+                        required
+                      >
+                        <option value="">Select a Perfume</option>
+                        <option value="Neon Mirage">Neon Mirage</option>
+                        <option value="Emerald Dawn">Emerald Dawn</option>
+                        <option value="Azure Ember">Azure Ember</option>
+                        <option value="Velvet Cascade">Velvet Cascade</option>
+                        <option value="Rose Harmony">Rose Harmony</option>
+                        <option value="Jasmine Dream">Jasmine Dream</option>
+                        <option value="Midnight Fern">Midnight Fern</option>
+                        <option value="Ocean Drift">Ocean Drift</option>
+                        <option value="Leather & Smoke">Leather & Smoke</option>
+                      </select>
                       <div className="rating-selector">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <button
@@ -405,6 +432,7 @@ export default function HomePage() {
                   <article key={review.id} className="review-card">
                     <div className="review-head">
                       <div className="review-name">{review.name}</div>
+                      {review.product && <div className="review-product">Perfume: {review.product}</div>}
                     </div>
                     <div className="review-stars">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</div>
                     <p>
