@@ -510,6 +510,237 @@ img {
 
 
 
+.hero-main-title {
+
+  font-size: clamp(2.5rem, 4vw + 1rem, 3.8rem);
+
+  font-weight: 800;
+
+  line-height: 1.1;
+
+  margin: 0 0 1.5rem 0;
+
+  letter-spacing: -0.02em;
+
+}
+
+
+
+
+.title-line {
+
+  display: block;
+
+  width: 100%;
+
+}
+
+
+
+
+.highlight {
+
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  -webkit-background-clip: text;
+
+  background-clip: text;
+
+  color: transparent;
+
+}
+
+
+
+
+.brand-name {
+
+  background: linear-gradient(135deg, #00c896 0%, #00d4ff 100%);
+
+  -webkit-background-clip: text;
+
+  background-clip: text;
+
+  color: transparent;
+
+  font-weight: 800;
+
+  position: relative;
+
+  display: inline-block;
+
+  animation: shimmer 3s ease-in-out infinite;
+
+}
+
+
+
+
+@keyframes shimmer {
+
+  0%, 100% {
+
+    background-position: 0% 50%;
+
+  }
+
+  50% {
+
+    background-position: 100% 50%;
+
+  }
+
+}
+
+
+
+
+.hero-description {
+
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+
+  color: rgba(255, 255, 255, 0.8);
+
+  margin: 0 0 2.5rem;
+
+  line-height: 1.7;
+
+}
+
+
+
+
+.hero-cta-group {
+
+  display: flex;
+
+  gap: 1.2rem;
+
+}
+
+
+
+
+.hero-cta-group.centered {
+
+  justify-content: center;
+
+}
+
+
+
+
+.btn-modern-primary {
+
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+  color: white;
+
+  border: none;
+
+  padding: 1.1rem 2.4rem;
+
+  border-radius: 10px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+
+}
+
+
+
+
+.btn-modern-primary:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+
+}
+
+
+
+
+.btn-modern-secondary {
+
+  background: transparent;
+
+  color: white;
+
+  border: 2px solid rgba(255, 255, 255, 0.3);
+
+  padding: 1.1rem 2.4rem;
+
+  border-radius: 10px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.3s ease;
+
+}
+
+
+
+
+.btn-modern-secondary:hover {
+
+  background: rgba(255, 255, 255, 0.1);
+
+  border-color: rgba(255, 255, 255, 0.5);
+
+}
+
+
+
+
+/* Hero Animation Styles */
+
+
+
+
+.hero-badge.animate-on-scroll {
+
+  animation: fadeInUp 0.8s ease-out 0.1s both;
+
+}
+
+
+
+
+.hero-main-title.animate-on-scroll {
+
+  animation: fadeInUp 1s ease-out 0.3s both;
+
+}
+
+
+
+
+.hero-description.animate-on-scroll {
+
+  animation: fadeInUp 1s ease-out 0.5s both;
+
+}
+
+
+
+
+.hero-cta-group.animate-on-scroll {
+
+  animation: fadeInUp 1s ease-out 0.7s both;
+
+}
+
+
+
+
 /* HERO WITH BACKGROUND */
 
 
