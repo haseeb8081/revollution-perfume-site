@@ -254,40 +254,55 @@ export default function ShopPage() {
             ) : filteredProducts.length > 0 ? (
               <div className="card-grid">
                 {filteredProducts.map((product) => (
-                  <article key={product._id} className="card">
-                    <div className="card-image-wrapper">
-                      <img
-                        src={product.images[0]?.url || "/placeholder.jpg"}
-                        alt={product.images[0]?.alt || product.name}
-                        className="card-image"
-                      />
-                    </div>
-                    <div className="card-content">
-                      <div className="card-label">{product.category}</div>
-                      <h3 className="card-title">{product.name}</h3>
-                      <p className="card-body">
-                        {product.description.substring(0, 100)}...
-                      </p>
-                      <div className="card-meta">
-                        <span className="pill">${product.price}</span>
-                        <button
-                          className="btn-add-to-cart"
-                          onClick={() => {
-                            addToCart({
-                              _id: product._id,
-                              name: product.name,
-                              price: product.price,
-                              image: product.images[0]?.url || "",
-                              category: product.category,
-                            });
-                            toast.success(`${product.name} added to cart!`);
-                          }}
-                        >
-                          Add to Cart
-                        </button>
+                  <div key={product._id} className="card-wrapper">
+                    <article 
+                      className="card"
+                      onClick={() => {
+                        addToCart({
+                          _id: product._id,
+                          name: product.name,
+                          price: product.price,
+                          image: product.images[0]?.url || "",
+                          category: product.category,
+                        });
+                        toast.success(`${product.name} added to cart!`);
+                      }}
+                    >
+                      <div className="card-image-wrapper">
+                        <img
+                          src={product.images[0]?.url || "/placeholder.jpg"}
+                          alt={product.images[0]?.alt || product.name}
+                          className="card-image"
+                        />
                       </div>
-                    </div>
-                  </article>
+                      <div className="card-content">
+                        <div className="card-label">{product.category}</div>
+                        <h3 className="card-title">{product.name}</h3>
+                        <p className="card-body">
+                          {product.description.substring(0, 100)}...
+                        </p>
+                        <div className="card-meta">
+                          <span className="pill">${product.price}</span>
+                          <button
+                            className="btn-add-to-cart"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addToCart({
+                                _id: product._id,
+                                name: product.name,
+                                price: product.price,
+                                image: product.images[0]?.url || "",
+                                category: product.category,
+                              });
+                              toast.success(`${product.name} added to cart!`);
+                            }}
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
                 ))}
               </div>
             ) : (

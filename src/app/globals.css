@@ -5806,3 +5806,8 @@ PROFILE DROPDOWN STYLES
 .product-card-new {
   cursor: pointer;
 }
+
+/* Shop page card click functionality */
+.card {
+  cursor: pointer;
+}
