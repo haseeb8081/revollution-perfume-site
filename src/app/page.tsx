@@ -491,49 +491,45 @@ export default function HomePage() {
         <section id="contact" className="contact-section">
           <div className="container">
             <div className="contact-container">
-              <div className="contact-info">
-                <h2 className="contact-title">Get In Touch</h2>
-                <p className="contact-subtitle">Reach out to us for any inquiries or support</p>
+              <div className="contact-info full-width">
+                <div className="contact-header">
+                  <h2 className="contact-title">Get In Touch</h2>
+                  <p className="contact-subtitle">Reach out to us for any inquiries or support</p>
+                </div>
         
-                <div className="contact-details">
-                  <div className="contact-item">
-                    <div className="contact-icon">📞</div>
-                    <div className="contact-text">
-                      <div className="contact-label">Phone</div>
-                      <div className="contact-value">+1 (555) 123-4567</div>
+                <div className="contact-content">
+                  <div className="contact-details">
+                    <div className="contact-item">
+                      <div className="contact-icon">📞</div>
+                      <div className="contact-text">
+                        <div className="contact-label">Phone</div>
+                        <div className="contact-value">+1 (555) 123-4567</div>
+                      </div>
+                    </div>
+          
+                    <div className="contact-item">
+                      <div className="contact-icon">✉️</div>
+                      <div className="contact-text">
+                        <div className="contact-label">Email</div>
+                        <div className="contact-value">hello@revollution.com</div>
+                      </div>
                     </div>
                   </div>
-        
-                  <div className="contact-item">
-                    <div className="contact-icon">✉️</div>
-                    <div className="contact-text">
-                      <div className="contact-label">Email</div>
-                      <div className="contact-value">hello@revollution.com</div>
+          
+                  <div className="social-links">
+                    <h3 className="social-title">Follow Us</h3>
+                    <div className="social-icons">
+                      <a href="#" className="social-icon">
+                        <span className="social-icon-text">📱</span>
+                        <span className="social-icon-label">Instagram</span>
+                      </a>
+                      <a href="#" className="social-icon">
+                        <span className="social-icon-text">📘</span>
+                        <span className="social-icon-label">Facebook</span>
+                      </a>
                     </div>
                   </div>
                 </div>
-        
-                <div className="social-links">
-                  <h3 className="social-title">Follow Us</h3>
-                  <div className="social-icons">
-                    <a href="#" className="social-icon">
-                      <span className="social-icon-text">📱</span>
-                      <span className="social-icon-label">Instagram</span>
-                    </a>
-                    <a href="#" className="social-icon">
-                      <span className="social-icon-text">📘</span>
-                      <span className="social-icon-label">Facebook</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-                      
-              <div className="contact-image">
-                <img 
-                  src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop" 
-                  alt="Neon Mirage Perfume - Our Signature Scent" 
-                  className="perfume-bottle-img" 
-                />
               </div>
             </div>
           </div>
