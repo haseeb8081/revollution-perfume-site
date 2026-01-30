@@ -5801,9 +5801,8 @@ PROFILE DROPDOWN STYLES
   z-index: 2 !important;
 }
 
- / *   P r o d u c t   c a r d   c l i c k   f u n c t i o n a l i t y   * / 
- . p r o d u c t - c a r d - n e w   { 
-     c u r s o r :   p o i n t e r ; 
- } 
-  
- 
+
+/* Product card click functionality */
+.product-card-new {
+  cursor: pointer;
+}
