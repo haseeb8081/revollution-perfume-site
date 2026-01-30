@@ -242,6 +242,8 @@ img {
 
   padding-bottom: 0.1rem;
 
+  color: var(--color-primary);
+
 }
 
 
@@ -265,6 +267,14 @@ img {
   background: linear-gradient(90deg, #00c896, #00a0ff);
 
   transition: width 0.2s ease;
+
+}
+
+
+
+.nav-links a:hover {
+
+  color: #00c896;
 
 }
 
@@ -3302,6 +3312,8 @@ section {
 
   transition: opacity 0.2s ease;
 
+  color: var(--color-primary);
+
 }
 
 
@@ -3309,6 +3321,8 @@ section {
 .footer-links a:hover {
 
   opacity: 1;
+
+  color: #00c896;
 
 }
 
