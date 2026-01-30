@@ -40,6 +40,8 @@ export default function HomePage() {
   const [prevScrollY, setPrevScrollY] = useState(0);
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   
+  const { addToCart } = useCart();
+  
   useEffect(() => {
     // Fetch reviews from the database
     const fetchReviews = async () => {
@@ -310,26 +312,58 @@ export default function HomePage() {
             
             <div className="products-grid">
               {sampleProducts.map((product, index) => (
-                <Link key={product.id} href="/shop" className="product-card-link">
-                  <article className="product-card-new" style={{ animationDelay: `${index * 0.2}s` }}>
-                    <div className="product-image-wrapper">
-                      <img 
-                        src={product.image} 
-                        alt={product.name}
-                        className="product-image"
-                      />
-                      <div className="product-category-badge">{product.category}</div>
-                    </div>
-                    <div className="product-info">
-                      <h3 className="product-name">{product.name}</h3>
-                      <p className="product-description">{product.description}</p>
-                      <div className="product-footer">
-                        <span className="product-price">${product.price}</span>
-                        <button className="product-btn">View Details</button>
+                <div key={product.id} className="product-card-wrapper">
+                  <Link href="/shop" className="product-card-link">
+                    <article 
+                      className="product-card-new" 
+                      style={{ animationDelay: `${index * 0.2}s` }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        addToCart({
+                          _id: product.id.toString(),
+                          name: product.name,
+                          price: product.price,
+                          image: product.image,
+                          category: product.category,
+                        });
+                        toast.success(`${product.name} added to cart!`);
+                      }}
+                    >
+                      <div className="product-image-wrapper">
+                        <img 
+                          src={product.image} 
+                          alt={product.name}
+                          className="product-image"
+                        />
+                        <div className="product-category-badge">{product.category}</div>
                       </div>
-                    </div>
-                  </article>
-                </Link>
+                      <div className="product-info">
+                        <h3 className="product-name">{product.name}</h3>
+                        <p className="product-description">{product.description}</p>
+                        <div className="product-footer">
+                          <span className="product-price">${product.price}</span>
+                          <button 
+                            className="product-btn"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              addToCart({
+                                _id: product.id.toString(),
+                                name: product.name,
+                                price: product.price,
+                                image: product.image,
+                                category: product.category,
+                              });
+                              toast.success(`${product.name} added to cart!`);
+                            }}
+                          >
+                            Add to Cart
+                          </button>
+                        </div>
+                      </div>
+                    </article>
+                  </Link>
+                </div>
               ))}
             </div>
             

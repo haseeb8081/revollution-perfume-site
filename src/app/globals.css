@@ -5800,3 +5800,10 @@ PROFILE DROPDOWN STYLES
   background: linear-gradient(135deg, rgba(11, 31, 59, 0.7), rgba(5, 16, 36, 0.8)) !important;
   z-index: 2 !important;
 }
+
+ / *   P r o d u c t   c a r d   c l i c k   f u n c t i o n a l i t y   * / 
+ . p r o d u c t - c a r d - n e w   { 
+     c u r s o r :   p o i n t e r ; 
+ } 
+  
+ 
