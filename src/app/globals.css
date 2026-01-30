@@ -5417,7 +5417,7 @@ PROFILE DROPDOWN STYLES
 /* Enhanced Compact Contact Section with 3D Effects */
 .contact-section {
   background: linear-gradient(135deg, #00c896, #00a0ff, #00c896) !important;
-  padding: 2rem 0 !important;
+  padding: 1.5rem 0 !important;
   position: relative;
   overflow: hidden;
 }
@@ -5437,9 +5437,9 @@ PROFILE DROPDOWN STYLES
 .contact-container {
   display: grid !important;
   grid-template-columns: 1fr 1fr !important;
-  gap: 1.5rem !important;
+  gap: 1rem !important;
   align-items: center !important;
-  max-width: 1100px !important;
+  max-width: 1000px !important;
   margin: 0 auto !important;
   position: relative;
   z-index: 2;
@@ -5449,7 +5449,7 @@ PROFILE DROPDOWN STYLES
   background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(10px) !important;
   border-radius: 16px !important;
-  padding: 1.5rem !important;
+  padding: 1.2rem !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   transform: perspective(800px) rotateY(5deg) translateZ(10px) !important;
@@ -5463,9 +5463,9 @@ PROFILE DROPDOWN STYLES
 }
 
 .contact-title {
-  font-size: 1.8rem !important;
+  font-size: 1.6rem !important;
   font-weight: 800 !important;
-  margin-bottom: 0.8rem !important;
+  margin-bottom: 0.6rem !important;
   background: linear-gradient(45deg, #fff, #e0e0e0) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -5475,25 +5475,25 @@ PROFILE DROPDOWN STYLES
 }
 
 .contact-subtitle {
-  font-size: 0.9rem !important;
+  font-size: 0.85rem !important;
   opacity: 0.9 !important;
   text-align: center !important;
-  margin-bottom: 1.5rem !important;
-  line-height: 1.5 !important;
+  margin-bottom: 1.2rem !important;
+  line-height: 1.4 !important;
   transform: translateZ(15px) !important;
 }
 
 .contact-details {
   display: flex !important;
   flex-direction: column !important;
-  gap: 1.2rem !important;
+  gap: 1rem !important;
 }
 
 .contact-item {
   display: flex !important;
   align-items: center !important;
-  gap: 1rem !important;
-  padding: 0.8rem !important;
+  gap: 0.8rem !important;
+  padding: 0.7rem !important;
   background: rgba(255, 255, 255, 0.15) !important;
   border-radius: 10px !important;
   transition: all 0.3s ease !important;
@@ -5508,9 +5508,9 @@ PROFILE DROPDOWN STYLES
 }
 
 .contact-icon {
-  font-size: 1.4rem !important;
-  width: 40px !important;
-  height: 40px !important;
+  font-size: 1.3rem !important;
+  width: 36px !important;
+  height: 36px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -5526,16 +5526,16 @@ PROFILE DROPDOWN STYLES
 }
 
 .contact-label {
-  font-size: 0.75rem !important;
+  font-size: 0.7rem !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
   opacity: 0.8 !important;
-  margin-bottom: 0.2rem !important;
+  margin-bottom: 0.15rem !important;
 }
 
 .contact-value {
-  font-size: 1rem !important;
+  font-size: 0.95rem !important;
   font-weight: 700 !important;
   color: white !important;
 }
@@ -5544,12 +5544,12 @@ PROFILE DROPDOWN STYLES
   background: rgba(255, 255, 255, 0.1) !important;
   backdrop-filter: blur(10px) !important;
   border-radius: 16px !important;
-  padding: 1.5rem !important;
+  padding: 1.2rem !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: 1.5rem !important;
+  gap: 1.2rem !important;
   align-items: center !important;
   justify-content: center !important;
   height: fit-content !important;
@@ -5564,9 +5564,9 @@ PROFILE DROPDOWN STYLES
 }
 
 .social-title {
-  font-size: 1.5rem !important;
+  font-size: 1.3rem !important;
   font-weight: 800 !important;
-  margin-bottom: 1rem !important;
+  margin-bottom: 0.8rem !important;
   background: linear-gradient(45deg, #fff, #e0e0e0) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
@@ -5577,7 +5577,7 @@ PROFILE DROPDOWN STYLES
 
 .social-icons {
   display: flex !important;
-  gap: 1.2rem !important;
+  gap: 1rem !important;
   justify-content: center !important;
 }
 
@@ -5585,15 +5585,15 @@ PROFILE DROPDOWN STYLES
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  gap: 0.6rem !important;
+  gap: 0.5rem !important;
   text-decoration: none !important;
   color: #ffffff !important;
   transition: all 0.3s ease !important;
-  padding: 0.8rem !important;
+  padding: 0.7rem !important;
   border-radius: 12px !important;
   background: rgba(255, 255, 255, 0.15) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  min-width: 80px !important;
+  min-width: 70px !important;
   transform: translateZ(15px) !important;
 }
 
@@ -5604,11 +5604,11 @@ PROFILE DROPDOWN STYLES
 }
 
 .social-icon-text {
-  font-size: 1.6rem !important;
+  font-size: 1.4rem !important;
 }
 
 .social-icon-label {
-  font-size: 0.8rem !important;
+  font-size: 0.75rem !important;
   font-weight: 600 !important;
   text-align: center !important;
 }
@@ -5616,15 +5616,15 @@ PROFILE DROPDOWN STYLES
 @media (max-width: 768px) {
   .contact-container {
     grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+    gap: 1rem !important;
   }
   
   .contact-title {
-    font-size: 1.5rem !important;
+    font-size: 1.4rem !important;
   }
   
   .social-icons {
-    gap: 0.8rem !important;
+    gap: 0.6rem !important;
   }
   
   .contact-info, .social-links {
@@ -5697,6 +5697,25 @@ PROFILE DROPDOWN STYLES
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
 }
 
+/* Contact Section Perfume Bottle Image with 3D Effects */
+.perfume-bottle-img {
+  width: 100% !important;
+  max-width: 350px !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+  transform: perspective(800px) rotateY(-12deg) rotateX(8deg) translateZ(-15px) !important;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  transform-style: preserve-3d !important;
+  filter: brightness(1.05) saturate(1.1) !important;
+}
+
+.perfume-bottle-img:hover {
+  transform: perspective(800px) rotateY(0deg) rotateX(0deg) translateZ(10px) scale(1.08) !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
+  filter: brightness(1.15) saturate(1.25) !important;
+}
+
 @media (max-width: 768px) {
   .perfume-image-wrapper {
     max-width: 300px !important;
@@ -5713,6 +5732,15 @@ PROFILE DROPDOWN STYLES
   
   .perfume-title {
     font-size: 1.2rem !important;
+  }
+  
+  .perfume-bottle-img {
+    max-width: 280px !important;
+    transform: perspective(1000px) rotateY(-8deg) rotateX(5deg) !important;
+  }
+  
+  .perfume-bottle-img:hover {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.05) !important;
   }
 }
 
