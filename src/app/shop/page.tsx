@@ -53,7 +53,7 @@ const dummyProducts: Product[] = [
     description: "A luxurious floral-green blend with velvety rose and soft moss. Elegant and refined.",
     price: 98,
     category: "women",
-    images: [{ url: "https://images.unsplash.com/photo-1528662768781-e34ec5440e89?w=600&h=600&fit=crop", alt: "Velvet Cascade" }]
+    images: [{ url: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&h=600&fit=crop", alt: "Velvet Cascade" }]
   },
   {
     _id: "5",
@@ -99,7 +99,7 @@ const dummyProducts: Product[] = [
     description: "Rich leather with smoky undertones. Bold, powerful, and unforgettable.",
     price: 99,
     category: "men",
-    images: [{ url: "https://images.unsplash.com/photo-1588405748879-acb68d5ae02e?w=600&h=600&fit=crop", alt: "Leather & Smoke" }]
+    images: [{ url: "https://images.unsplash.com/photo-1605721911519-3dfeb3be25e7?w=600&h=600&fit=crop", alt: "Leather & Smoke" }]
   },
 ];
 

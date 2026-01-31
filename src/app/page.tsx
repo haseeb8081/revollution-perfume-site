@@ -163,7 +163,7 @@ export default function HomePage() {
       name: "Velvet Cascade",
       category: "Women",
       price: 98,
-      image: "https://images.unsplash.com/photo-1528662768781-e34ec5440e89?w=600&h=600&fit=crop",
+      image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=600&h=600&fit=crop",
       description: "Elegant floral with velvety rose"
     },
     {
